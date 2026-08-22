@@ -1,64 +1,368 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asif Hossain | Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asif Hossain — Applied Mathematics</title>
+<meta name="description" content="Asif Hossain, B.Sc. Applied Mathematics student at Noakhali Science and Technology University. Mathematics, programming, statistics and data analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#1E252B;
+    --panel:#262F37;
+    --ink:#F3F1EA;
+    --ink-soft:#C4CBD1;
+    --ink-faint:#6C7985;
+    --ink-muted:#9CA6AE;
+    --plot:#5FD7BC;
+    --plot-soft:#1E3630;
+    --amber:#E8B04B;
+    --amber-soft:#3A2D14;
+    --line:#66727E;
+    --radius:2px;
+    --maxw:920px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--plot); color:#12201C; }
+  a{ color:var(--plot); }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--plot);
+    outline-offset:3px;
+  }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.11em;
+    text-transform:uppercase;
+    color:var(--plot);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:var(--plot);
+    display:inline-block;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(30,37,43,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0;
+  }
+  .nav-mark{
+    font-family:'Newsreader', serif;
+    font-style:normal;
+    font-weight:600;
+    font-size:19px;
+    color:var(--ink);
+    text-decoration:none;
+  }
+  .nav-links{
+    display:flex; gap:26px; list-style:none; margin:0; padding:0;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+  }
+  .nav-links a{
+    color:var(--ink-soft); text-decoration:none;
+    padding:4px 2px;
+    border-bottom:1px solid transparent;
+    transition:border-color .15s, color .15s;
+  }
+  .nav-links a:hover{ color:var(--ink); border-color:var(--plot); }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding:76px 0 64px; }
+  .hero h1{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-style:normal;
+    font-size:clamp(40px, 7vw, 64px);
+    line-height:1.02;
+    margin:14px 0 6px;
+    letter-spacing:-0.01em;
+  }
+  .hero .role{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    color:var(--ink-soft);
+    margin:0 0 22px;
+  }
+  .hero p.lede{
+    max-width:56ch;
+    font-size:17.5px;
+    color:var(--ink-soft);
+    margin:0 0 30px;
+  }
+  .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.03em;
+    text-decoration:none;
+    padding:11px 20px;
+    border-radius:var(--radius);
+    display:inline-block;
+    transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn-primary{ background:var(--plot); color:#12201C; }
+  .btn-primary:hover{ background:#7EE4CC; transform:translateY(-1px); }
+  .btn-ghost{ border:1px solid var(--line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--plot); color:var(--plot); transform:translateY(-1px); }
+
+
+  /* ---------- Sections ---------- */
+  section{ padding:64px 0; border-top:1px solid var(--line); }
+  section:first-of-type{ border-top:none; }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:32px; gap:16px; flex-wrap:wrap; }
+  h2{
+    font-family:'Newsreader', serif; font-weight:500; font-size:30px; margin:0;
+    letter-spacing:-0.005em;
+  }
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* About */
+  .about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:48px; }
+  .about-grid p{ color:var(--ink-soft); margin:0 0 14px; max-width:58ch; }
+  .fact-list{ list-style:none; margin:0; padding:0; font-family:'IBM Plex Mono', monospace; font-size:13px; }
+  .fact-list li{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dashed var(--line); gap:12px; }
+  .fact-list li span:first-child{ color:var(--ink-muted); }
+  .fact-list li span:last-child{ color:var(--ink); text-align:right; }
+
+  /* Education */
+  .timeline{ position:relative; padding-left:28px; }
+  .timeline::before{ content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line); }
+  .tl-item{ position:relative; padding-bottom:26px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:""; position:absolute; left:-28px; top:4px; width:11px; height:11px;
+    border-radius:50%; background:var(--paper); border:2px solid var(--plot);
+  }
+  .tl-year{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--plot); margin-bottom:4px; display:block; }
+  .tl-item h3{ font-family:'Newsreader', serif; font-weight:500; font-size:20px; margin:0 0 6px; }
+  .tl-item p{ color:var(--ink-soft); margin:0; max-width:56ch; }
+
+  /* Skills */
+  .skill-groups{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+  .skill-card{ border:1px solid var(--line); background:var(--panel); padding:22px 22px 18px; border-radius:var(--radius); }
+  .skill-card h3{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-muted); margin:0 0 16px; font-weight:500;
+  }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:'IBM Plex Mono', monospace; font-size:13px;
+    padding:7px 12px; border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--paper); color:var(--ink);
+  }
+
+  /* Projects */
+  .proj-card{
+    display:grid; grid-template-columns:auto 1fr; gap:22px;
+    border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px; margin-bottom:18px; background:var(--panel);
+  }
+  .proj-num{
+    font-family:'Newsreader', serif; font-style:normal; font-weight:600; font-size:30px; color:var(--plot); line-height:1;
+  }
+  .proj-card h3{ font-family:'Newsreader', serif; font-weight:500; font-size:21px; margin:0 0 8px; }
+  .proj-card p{ color:var(--ink-soft); margin:0 0 14px; max-width:58ch; }
+  .proj-link{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .proj-link:hover{ text-decoration:underline; }
+  .proj-card.placeholder{ opacity:0.55; border-style:dashed; }
+  .proj-card.placeholder .proj-num{ color:var(--ink-muted); }
+  .proj-tag{
+    display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:11px;
+    color:var(--amber); background:var(--amber-soft); padding:3px 9px; border-radius:var(--radius); margin-bottom:10px;
+  }
+
+  /* Contact */
+  .contact-inner{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:28px; }
+  .contact-inner h2{ font-size:36px; max-width:14ch; }
+  .contact-links{ display:flex; flex-direction:column; gap:10px; font-family:'IBM Plex Mono', monospace; font-size:15px; }
+  .contact-links a{ text-decoration:none; color:var(--ink); border-bottom:1px solid var(--line); padding-bottom:2px; }
+  .contact-links a:hover{ color:var(--plot); border-color:var(--plot); }
+
+  footer{
+    border-top:1px solid var(--line); padding:26px 0 40px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-muted);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (max-width:760px){
+    .about-grid, .skill-groups{ grid-template-columns:1fr; }
+    .nav-links{ gap:16px; }
+    .contact-inner{ flex-direction:column; align-items:flex-start; }
+    .proj-card{ grid-template-columns:1fr; }
+  }
+</style>
 </head>
-
 <body>
-    <section id="Home">
-        <h1>Asif Hossain</h1>
-        <h2>Applied Mathematics student</h2>
-        <p>I am an Applied mathematics student interested in mathematics,
-            programming,statistics and data analysis</p>
-    </section>
-   
-    <h1>Asif Hossain</h1>
 
-    <h2>Applied Mathematics Student</h2>
-
-    <p>
-        Welcome to my personal portfolio website.
-    </p>
-
-    <h2>About Me</h2>
-
-    <p>
-        I am an Applied Mathematics student interested in
-        mathematics, programming, statistics and data analysis.
-    </p>
-
-    <h2>Education</h2>
-
-    <p>
-        B.Sc. in Applied Mathematics
-    </p>
-
-    <h2>Skills</h2>
-
-    <ul>
-        <li>MATLAB</li>
-        <li>C Programming</li>
-        <li>Fortran</li>
-        <li>Statistics</li>
-        <li>Data Analysis</li>
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="nav-mark">Asif Hossain</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
+  </div>
+</header>
 
-    <h2>Projects</h2>
-    <section id="Projects">
-    <div>
-            <h3>Fortran codes</h3>
-            <p>Some problem solving throuth Fortran code</p>
-            <a href="https://github.com/Asif-amath/Fortran-projects/pulse" target="_blank">View fortran code</a>
+<main>
+  <section class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow">B.Sc. Applied Mathematics · NSTU, Bangladesh</span>
+      <h1>Asif Hossain</h1>
+      <p class="role">Applied Mathematics student — mathematics, programming, statistics &amp; data analysis</p>
+      <p class="lede">I study the structures underneath problems — from differential equations to datasets — and build small tools in Fortran, C and MATLAB to solve them. Currently in my second year at Noakhali Science and Technology University.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap reveal">
+      <div class="section-head"><h2>About</h2><span class="eyebrow">01</span></div>
+      <div class="about-grid">
+        <div>
+          <p>I'm an Applied Mathematics undergraduate interested in how formal reasoning — proofs, models, algorithms — turns into working code and real conclusions from data. My work sits at the overlap of numerical methods, statistics and programming.</p>
+          <p>Outside of coursework I like working through problem sets in Fortran and MATLAB, and I'm building toward stronger footing in statistics and data analysis as core tools for research.</p>
         </div>
-    </section>
+        <ul class="fact-list">
+          <li><span>Program</span><span>B.Sc. Applied Mathematics</span></li>
+          <li><span>Institution</span><span>NSTU, Bangladesh</span></li>
+          <li><span>Admitted</span><span>2024</span></li>
+          <li><span>Focus</span><span>Numerical methods, statistics</span></li>
+          <li><span>Based in</span><span>Noakhali, Bangladesh</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-   
+  <section id="education">
+    <div class="wrap reveal">
+      <div class="section-head"><h2>Education</h2><span class="eyebrow">02</span></div>
+      <div class="timeline">
+        <div class="tl-item">
+          <span class="tl-year">2024 — Present</span>
+          <h3>B.Sc. in Applied Mathematics</h3>
+          <p>Noakhali Science and Technology University (NSTU), Bangladesh. Coursework spans calculus, linear algebra, differential equations, numerical methods and statistics, alongside programming in C and Fortran.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <h2>Contact</h2>
+  <section id="skills">
+    <div class="wrap reveal">
+      <div class="section-head"><h2>Skills</h2><span class="eyebrow">03</span></div>
+      <div class="skill-groups">
+        <div class="skill-card">
+          <h3>Programming &amp; Computation</h3>
+          <div class="chip-row">
+            <span class="chip">MATLAB</span>
+            <span class="chip">C</span>
+            <span class="chip">Fortran</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Analytical</h3>
+          <div class="chip-row">
+            <span class="chip">Statistics</span>
+            <span class="chip">Data Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <p>Email: your-email@example.com</p>
+  <section id="projects">
+    <div class="wrap reveal">
+      <div class="section-head"><h2>Projects</h2><span class="eyebrow">04</span></div>
+
+      <div class="proj-card">
+        <span class="proj-num">01</span>
+        <div>
+          <span class="proj-tag">Fortran</span>
+          <h3>Fortran Problem-Solving Collection</h3>
+          <p>A growing set of Fortran programs written to work through mathematical and numerical problems by hand-coding the solutions — a way of pairing coursework theory with practice.</p>
+          <a class="proj-link" href="https://github.com/Asif-amath/Fortran-projects/pulse" target="_blank" rel="noopener">View the repository ↗</a>
+        </div>
+      </div>
+
+      <div class="proj-card placeholder">
+        <span class="proj-num">02</span>
+        <div>
+          <span class="proj-tag" style="color:var(--ink-muted); background:transparent; border:1px dashed var(--line);">In progress</span>
+          <h3>More projects coming soon</h3>
+          <p>Additional coursework and independent projects will be added here as they are completed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap reveal">
+      <div class="contact-inner">
+        <div>
+          <h2>Contact</h2>
+          <p style="color:var(--ink-soft); max-width:40ch; margin:8px 0 0;">For academic inquiries, collaboration, or opportunities, feel free to reach out.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:hossainasif1976@gmail.com">hossainasif1976@gmail.com</a>
+          <a href="https://github.com/Asif-amath" target="_blank" rel="noopener">github.com/Asif-amath</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Asif Hossain · Noakhali, Bangladesh</span>
+  <span>B.Sc. Applied Mathematics, NSTU</span>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el=>io.observe(el));
+</script>
 
 </body>
 </html>
